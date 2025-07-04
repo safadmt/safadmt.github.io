@@ -1,51 +1,823 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Safad MT - MERN Stack Developer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safad MT - MERN Stack Developer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: -40px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-left: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-date {
+            background: #f8f9fa;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .experience-description {
+            list-style: none;
+        }
+
+        .experience-description li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-description li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tech {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-description {
+            list-style: none;
+        }
+
+        .project-description li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-description li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-item {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Languages Section */
+        .languages-list {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .language-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .language-item:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .language-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-level {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .experience-timeline {
+                padding-left: 1rem;
+            }
+
+            .experience-item {
+                margin-left: 1rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .languages-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scroll smooth behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans">
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-4xl font-bold mb-2">👋 Hi, I'm Safad MT</h1>
-    <p class="text-lg mb-4">MERN Stack Developer | JavaScript Enthusiast | Cloud Practitioner</p>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Safad MT</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold">💼 Experience</h2>
-      <ul class="list-disc pl-5 mt-2">
-        <li><strong>MERN Stack Developer – Ternion Architects (Oct 2024 – Present)</strong>: Built a scalable multi-vendor eCommerce platform...</li>
-        <li><strong>MERN Stack Developer Intern – Makbig Learn (Mar 2024 – Sep 2024)</strong>: Developed an eCommerce platform with JWT-based auth...</li>
-      </ul>
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Safad MT</h1>
+            <p class="subtitle">MERN Stack Developer</p>
+            <p class="description">
+                Experienced in JavaScript, TypeScript, Node.js, Express.js, React.js and modern development practices. 
+                Known for strong time management and the ability to deliver high-quality projects on deadline.
+            </p>
+            <div class="contact-info">
+                <a href="tel:+918281760431" class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    +91 8281760431
+                </a>
+                <a href="mailto:safadmt84@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    safadmt84@gmail.com
+                </a>
+                <a href="https://github.com/safadmt" class="contact-item" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="https://linkedin.com/in/safad-mt" class="contact-item" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold">🔧 Tech Stack</h2>
-      <p>JavaScript, TypeScript, React.js, Node.js, Express.js, MongoDB, PostgreSQL, AWS, GCP, Docker...</p>
-    </section>
+    <main>
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-layer-group"></i> Frameworks & Libraries</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React.js</span>
+                            <span class="skill-tag">Redux</span>
+                            <span class="skill-tag">Express.js</span>
+                            <span class="skill-tag">Nest.js</span>
+                            <span class="skill-tag">Socket.IO</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Chakra UI</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-server"></i> Backend & Databases</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">AWS S3</span>
+                            <span class="skill-tag">AWS EC2</span>
+                            <span class="skill-tag">CloudFront</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">GitHub Actions</span>
+                            <span class="skill-tag">GCP OAuth2</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-tools"></i> Tools & Testing</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Postman</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">Vitest</span>
+                            <span class="skill-tag">Mocha</span>
+                            <span class="skill-tag">Chai</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-brain"></i> Other</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Data Structures</span>
+                            <span class="skill-tag">Algorithms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold">📌 Projects</h2>
-      <ul class="list-disc pl-5 mt-2">
-        <li><strong>Helioswatches:</strong> eCommerce platform with login, wallet, Stripe/Razorpay.</li>
-        <li><strong>CodeFreak LMS:</strong> Role-based access, video/image storage with AWS S3.</li>
-        <li><strong>Swiggy Clone:</strong> React UI, search/filter with Axios.</li>
-        <li><strong>OLX Clone:</strong> React + Supabase CRUD system.</li>
-      </ul>
-    </section>
+        <section id="experience" class="section" style="background: #f8f9fa;">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-title">MERN Stack Developer</h3>
+                                <p class="experience-company">Ternion Architects — Vatakara, Kerala</p>
+                            </div>
+                            <span class="experience-date">Oct. 2024 – Present</span>
+                        </div>
+                        <ul class="experience-description">
+                            <li>Built a scalable monolithic multi-vendor eCommerce platform for architectural materials</li>
+                            <li>Engineered Express.js backend with modular MVC and complex Mongoose schemas</li>
+                            <li>Created admin and vendor dashboards with React, Tailwind CSS, and react-router-dom</li>
+                            <li>Integrated Swagger UI for live API documentation</li>
+                            <li>Implemented Socket.IO for real-time chat and notification system</li>
+                            <li>Integrated Razorpay and Delhivery APIs for payment and shipping</li>
+                            <li>Uploaded assets securely to AWS S3 using Multer</li>
+                            <li>Set up media streaming using Fluent FFmpeg</li>
+                            <li>Wrote backend tests with Mocha/Chai and configured CI/CD pipelines</li>
+                            <li>Deployed backend on GCP using Docker</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-title">MERN Stack Developer Intern</h3>
+                                <p class="experience-company">Makbig Learn — Kannur, Kerala</p>
+                            </div>
+                            <span class="experience-date">Mar. 2024 – Sep. 2024</span>
+                        </div>
+                        <ul class="experience-description">
+                            <li>Developed a user-friendly eCommerce platform using modern tech stack</li>
+                            <li>Built JWT-based authentication and role-based authorization</li>
+                            <li>Implemented secure payments and PostgreSQL-based data management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold">📚 Education</h2>
-      <p>BCA - Bharathidasan University (2022 – Present)<br/> MERN Stack - Techmindz<br/> B.Com - University of Calicut</p>
-    </section>
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Helioswatches</h3>
+                            <p class="project-tech">MongoDB, Express.js, EJS, Tailwind CSS, AWS EC2, NGINX</p>
+                        </div>
+                        <div class="project-content">
+                            <ul class="project-description">
+                                <li>Built an eCommerce website with secure login, Razorpay/Stripe integration, wallet system</li>
+                                <li>Implemented a dynamic coupon engine and product search/filter system</li>
+                                <li>Created sales dashboards and analytics tools</li>
+                                <li>Integrated Cropper.js for dynamic banners and image uploads</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">CodeFreak LMS</h3>
+                            <p class="project-tech">MongoDB, React.js, Express.js, AWS S3, Redux, Tailwind CSS</p>
+                        </div>
+                        <div class="project-content">
+                            <ul class="project-description">
+                                <li>Implemented role-based access for students and instructors</li>
+                                <li>Enabled instructors to manage course content</li>
+                                <li>Used AWS S3 for video/image hosting and Razorpay/Stripe for payments</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Swiggy Clone</h3>
+                            <p class="project-tech">React, CSS, Axios</p>
+                        </div>
+                        <div class="project-content">
+                            <ul class="project-description">
+                                <li>Built UI similar to Swiggy with item search/filtering and live data fetching</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">OLX Clone</h3>
+                            <p class="project-tech">React, Tailwind CSS, Supabase</p>
+                        </div>
+                        <div class="project-content">
+                            <ul class="project-description">
+                                <li>Built CRUD-based product listing system with search features</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold">🌐 Contact</h2>
-      <p>Email: <a href="mailto:safadmt84@gmail.com" class="text-blue-600">safadmt84@gmail.com</a><br/>
-      GitHub: <a href="https://github.com/safadmt" class="text-blue-600">github.com/safadmt</a><br/>
-      LinkedIn: <a href="https://linkedin.com/in/safad-mt" class="text-blue-600">linkedin.com/in/safad-mt</a></p>
-    </section>
-  </div>
+        <section id="education" class="section" style="background: #f8f9fa;">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="education-grid">
+                    <div class="education-item">
+                        <h3 class="education-degree">Bachelor of Computer Application (Distance)</h3>
+                        <p class="education-school">Bharathidasan University, Tamil Nadu, India</p>
+                        <p class="education-date">Dec. 2022 – Present</p>
+                    </div>
+                    <div class="education-item">
+                        <h3 class="education-degree">MERN Stack Development Certificate</h3>
+                        <p class="education-school">Techmindz Institution, Kochi, India</p>
+                        <p class="education-date">Mar. 2023</p>
+                    </div>
+                    <div class="education-item">
+                        <h3 class="education-degree">Bachelor of Commerce</h3>
+                        <p class="education-school">University of Calicut, Kozhikode, India</p>
+                        <p class="education-date">2014 – 2017</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="languages" class="section">
+            <div class="container">
+                <h2 class="section-title">Languages</h2>
+                <div class="languages-list">
+                    <div class="language-item">
+                        <div class="language-name">Malayalam</div>
+                        <div class="language-level">Native</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">English</div>
+                        <div class="language-level">Fluent</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">Arabic</div>
+                        <div class="language-level">Read & Write</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Safad MT. All rights reserved.</p>
+            <p>MERN Stack Developer | Passionate about creating innovative web solutions</p>
+            <div class="footer-links">
+                <a href="https://github.com/safadmt" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/safad-mt" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:safadmt84@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+918281760431"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Observe individual cards and items
+        document.querySelectorAll('.skill-category, .experience-item, .project-card, .education-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
 </body>
 </html>
 
